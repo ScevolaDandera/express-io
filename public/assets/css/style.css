@@ -1,0 +1,9 @@
+#container {
+    flex: 1;
+    background:rgba(75, 234, 240, 0.12);
+    border: 1px solid red;
+}
+.card {
+    border: 1px solid #000000;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
