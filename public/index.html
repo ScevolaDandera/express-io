@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Nothing here</title>
+        <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    
+    </head>
+    <body>
+ just a server
+    </body>
+    <script>  
+     const socketIO = io();
+
+     socketIO.on("connection", function (socket) {
+        console.log("connected");
+     
+     });
+
+
+     socketIO.on("shoe", function (data) {
+            console.table("data: " + JSON.stringify(data.deck[0]));
+        });
+       </script>
+   
+</html>

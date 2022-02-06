@@ -1,0 +1,34 @@
+{
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon src/index.js",
+    "watch": "nodemon --inspect src/index.js",
+    "start": "node src/index.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScevolaDandera/express-io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ScevolaDandera/express-io/issues"
+  },
+  "homepage": "https://github.com/ScevolaDandera/express-io#readme",
+  "devDependencies": {
+    "babel-loader": "^8.2.3",
+    "prettier": "^2.5.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15",
+    "socket.io": "^4.4.1"
+  }
+}
