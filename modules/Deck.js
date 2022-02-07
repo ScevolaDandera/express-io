@@ -6,17 +6,22 @@ export class Deck {
         for (let i = 0; i < numberOfDecks; i++) {
             let curDeck = [];
             for (let suit in this.suits) {
+                let j = 1;
                 for (let value in this.values) {
+                    let s = this.suits[suit].toString().charAt(0).toUpperCase();
+                    let img = j+s+'.png';
                     curDeck.push({
                         suit: this.suits[suit],
-                        value: this.values[value]
+                        value: this.values[value],
+                        asset: img
                     });
+                    j++;
                 }
             }
             this.cards.push(curDeck);
         }
-     //   return this.shuffle(this.cards);
-     return this.cards;
+       const tempcards =  this.shuffle(this.cards);
+    return tempcards[0];
     }
 
     shuffle(array) {

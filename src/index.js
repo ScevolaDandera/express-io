@@ -15,7 +15,7 @@ const io = new Server(server);
 
 import Game from '../modules/Game.js';
 
-const Shoe = new Game(1);
+const Shoe = new Game(6);
 // console.table(JSON.stringify(Shoe));
 
 app.get('/', (req, res) => {
