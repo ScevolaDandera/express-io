@@ -16,10 +16,8 @@ jobs:
      
           script: |
             cd ../var/www/gameserver/express-io/
-            killall nodemon
             git pull
             npm install
-            npm run serve
 
 
 
