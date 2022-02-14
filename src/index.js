@@ -1,4 +1,4 @@
-import cors from 'cors';
+// import cors from 'cors';
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
@@ -8,7 +8,7 @@ const __dirname = path.resolve();
 //testing
 const app = express();
 app.use(express.static(__dirname + '/public'));
-app.use(cors());
+// app.use(cors());
 const server = http.createServer(app);
 
 const io = new Server(server);
