@@ -12,7 +12,7 @@ export default class Game {
         this.playerCards = [];
         this.bankerCards = [];
         this.winner = false;
-        this.betOpen = true;
+        this.bettingOpen = true;
         this.started = false;
         this.flopResults = [];
 
@@ -22,9 +22,8 @@ export default class Game {
   
     start() {
     if(this.started == false) {
-        this.start = true;
+        this.started = true;
         this.round++;
-        this.betOpen = false;
         this.flopResults = this.pickFlop();
     } else {
         console.log("Game has already started!");
@@ -34,7 +33,7 @@ export default class Game {
 
     reset() {
         this.start = false;
-        this.betOpen = true;
+        this.betOpen();
         this.winner = false;
         this.flopResults = [];
     }
@@ -44,32 +43,26 @@ export default class Game {
         return (flopWinner == false) ? true : false;
     }
 
+    betOpen() {
+        this.bettingOpen = true;
+        return this.bettingOpen;
+    }
+
+    betClose() {
+        this.bettingOpen = false;
+        return this.bettingOpen;
+    }
+
     takeTurn() {
         //take another card
-
-
-
-        this.betOpen = true;
+        console.log("taking turn");
     }
 
     pickFlop() {
             return [this.pickForPlayer(), this.pickForBanker(), this.pickForPlayer(),this.pickForBanker()];
         }
+
     checkForWinner() {
-        // if (this.playerScore == 9) {
-        //     console.log(this.playerCards);
-        //     console.log("Player won!", this.playerScore);
-        //     this.setWinner("Player");
-        //     console.log("Win by 2 cards!");
-        //     return;
-        // }
-        // if (this.bankerScore == 9) {
-        //     console.log(this.bankerCards);
-        //     console.log("Banker won!", this.bankerScore);
-        //     this.setWinner("Banker");
-        //     console.log("Win by 2 cards!");
-        //     return;
-        // }
         let playerWon = (this.playerScore == 9) ? "Player" : false;
         let bankerWon = (this.bankerScore == 9) ? "Banker" : false;
         let tie = (this.playerScore == this.bankerScore) ? "Tie" : false;
@@ -148,7 +141,18 @@ export default class Game {
 
         }
     }
-
+    wait(ms) {
+        this.betOpen();
+        let start = new Date().getTime();
+        let end = start;
+        while (end < start + ms) {
+          end = new Date().getTime();
+          console.log("waiting.. . . . ", end - start);
+        }
+        this.betClose();
+        console.log("Done waiting.. betClosed");
+      }
+      
     getScore(card) {
         let value = 0;
         if (card.value === 'A') {

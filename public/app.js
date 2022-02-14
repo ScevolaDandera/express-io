@@ -44,7 +44,6 @@ class App {
     init() {
         const startbtn = document.getElementById("startbtn");
         startbtn.addEventListener("click", () => {
-          //  this.socket.join("TestRoom");
             this.socket.emit("JoinRoom", "TestRoom");
         });
 
@@ -53,8 +52,9 @@ class App {
             console.log("connected to server", this.socket.id);
         });
 
-   //     this.socket.on("shoe", this.LoadShoe.bind(this));
    this.socket.on("flop", this.loadFlop.bind(this));
+   this.socket.on("betOpen", () => {
+   });
         
     }
 

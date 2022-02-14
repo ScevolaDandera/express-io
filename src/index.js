@@ -25,16 +25,10 @@ let games = [];
 
 
 function makeRoom(roomName) {
-  let gm;
-  const checkifGame = games[roomName] ? true : false;
-  if (checkifGame == false) {
     let game = new Game(6);
-    gm = new gameManager(game, roomName);
+    let gm = new gameManager(game, roomName);
     games[roomName] = gm;
-  } else {
-    gm = games[roomName];
-  }
-  return gm;
+    console.log("Created new game: " + roomName);
 }
 
 
@@ -57,18 +51,34 @@ io.on('connect', (socket) => {
     console.log("Clicked Join room: " + room);
     socket.join(room);
 
-    if (typeof(games[room]) === 'undefined') {
-      makeRoom(room);
-      console.log("does not exist");
-    }
-    //fix this later
-    console.log("games: " + JSON.stringify(games));
-      const flop = games[room].game.start();
-      console.log(flop);
-      sendFlop(flop, room);
-      wait(2000);
+    //game loop starts here
 
-      console.log("Done waiting");
+    if (typeof(games[room]) === 'undefined') {
+      console.log("does not exist");
+      makeRoom(room);
+    }
+    // console.log("games: " + JSON.stringify(games));
+    const currentGame = games[room].game;
+      const flop = currentGame.start();
+      betOpen(room);
+      sendFlop(flop, room);
+      currentGame.wait(2000);
+      let checkWinner = currentGame.checkForWinner();
+      if(!checkWinner) {
+        currentGame.takeTurn();
+      }
+      else {
+        sendWinner(checkWinner);
+        console.log("Round finished");
+        currentGame.reset();
+        //if no enough balance in shoe, exit loop 
+        // or loop again
+      }
+
+
+
+      //game loop ends here
+      
 
 
 
@@ -76,10 +86,10 @@ io.on('connect', (socket) => {
 
 });
 
-// function sendShoe(room, Shoe) {
-//   console.log("Sending shoe to room: " + room);
-//   io.to(room).emit('shoe', Shoe);
-// }
+function betOpen(room) {
+  console.log("Bet Open!");
+  io.to(room).emit('betOpen');
+}
 
 
 function sendFlop(flop, room) {
@@ -87,17 +97,9 @@ function sendFlop(flop, room) {
   io.to(room).emit('flop', flop);
 }
 
-function wait(ms) {
-  let start = new Date().getTime();
-  let end = start;
-  while (end < start + ms) {
-    end = new Date().getTime();
-    console.log("waiting.. . . . ", end - start);
-  }
-}
 
 
 
-server.listen(6000, () => {
+server.listen(4000, () => {
   console.log('listening on *:4000');
 });
