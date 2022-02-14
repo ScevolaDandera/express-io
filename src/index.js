@@ -4,6 +4,7 @@ import http from 'http';
 import { Server } from 'socket.io';
 import * as path from 'path';
 const __dirname = path.resolve();
+
 //testing
 const app = express();
 app.use(express.static(__dirname + '/public'));
